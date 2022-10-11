@@ -4,7 +4,7 @@ const reviewSchema = new mongoose.Schema(
   {
     review: {
       type: String,
-      required: [true, 'Review cannot be empty!']
+      required: [true, 'Review can not be empty!']
     },
     rating: {
       type: Number,
@@ -17,13 +17,13 @@ const reviewSchema = new mongoose.Schema(
     },
     tour: {
       type: mongoose.Schema.ObjectId,
-      ref: 'tour',
-      required: [true, 'Review must belong to a tour!']
+      ref: 'Tour',
+      required: [true, 'Review must belong to a tour.']
     },
     user: {
       type: mongoose.Schema.ObjectId,
       ref: 'User',
-      required: [true, 'Review must belong to a User!']
+      required: [true, 'Review must belong to a user']
     }
   },
   {
@@ -31,6 +31,14 @@ const reviewSchema = new mongoose.Schema(
     toObject: { virtuals: true }
   }
 );
+
+reviewSchema.pre(/^find/, function(next) {
+  this.populate({
+    path: 'user',
+    select: 'name photo'
+  });
+  next();
+});
 
 const Review = mongoose.model('Review', reviewSchema);
 
