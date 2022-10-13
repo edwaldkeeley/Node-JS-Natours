@@ -24,19 +24,35 @@ router
   .get(tourController.aliasTopTours, tourController.getAllTours);
 
 router.route('/tour-stats').get(tourController.getTourStats);
-router.route('/monthly-plan/:year').get(tourController.getMonthlyPlan);
+router.route('/monthly-plan/:year').get(
+  authController.protect,
+  // Restricted access Because Normal User Have Free plan access
+  authController.restrictTo('lead-guide', 'guide'),
+  tourController.getMonthlyPlan
+);
 
 router
   .route('/createTour')
-  .get(authController.protect, tourController.getAllTours)
-  .post(tourController.createTour);
+  .get(tourController.getAllTours)
+  .post(
+    authController.protect,
+    // Restricted access so Normal Users Cant Randomly Create tours
+    authController.restrictTo('admin', 'lead-guide'),
+    tourController.createTour
+  );
 
 router
   .route('/:id')
   .get(tourController.getTour)
-  .patch(tourController.updateTour)
+  .patch(
+    authController.protect,
+    // Restricted access so Normal Users Cant Randomly update
+    authController.restrictTo('admin', 'lead-guide'),
+    tourController.updateTour
+  )
   .delete(
     authController.protect,
+    // Restricted access so Normal Users Cant Randomly delete
     authController.restrictTo('admin', 'lead-guide', 'owner'),
     tourController.deleteTour
   );
