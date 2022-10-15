@@ -61,6 +61,8 @@ reviewSchema.statics.calcAverageRatings = async function(tourId) {
   });
 };
 
+// this is comment, you can delete it
+
 reviewSchema.post('save', function() {
   this.constructor.calcAverageRatings(this.tour);
 });
