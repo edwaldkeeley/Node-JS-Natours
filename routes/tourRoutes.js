@@ -57,6 +57,8 @@ router
     tourController.deleteTour
   );
 
+// THIS IS A comment for commit, please feel free to delete it
+
 // router
 //   .route('/:tourId/reviews')
 //   .post(
