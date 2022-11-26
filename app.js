@@ -18,7 +18,7 @@ const app = express();
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
-//commit 2
+//commit 3
 
 // Serving Static file
 // app.use(express.static(`${__dirname}/public`));
