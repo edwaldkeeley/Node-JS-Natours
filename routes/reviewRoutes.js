@@ -7,7 +7,7 @@ const router = express.Router({ mergeParams: true });
 // Protect All Routes below it
 router.use(authController.protect);
 
-// this is for commit 
+// this is for commit 1
 router
   .route('/')
   // Get All review
