@@ -7,7 +7,6 @@ const router = express.Router({ mergeParams: true });
 // Protect All Routes below it
 router.use(authController.protect);
 
-//
 router
   .route('/')
   // Get All review
